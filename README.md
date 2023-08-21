@@ -137,7 +137,7 @@ class MyCustomTokenType extends RegexType
     }
 }
 
-// alternatively tokens can be defined directly using the RegexTokenType class
+// alternatively tokens can be defined directly using the RegexType class
 $myCustomToken2 = new RegexType(
     name: 'my_custom_token',
     regexp: '/^this a custom token/ui'
