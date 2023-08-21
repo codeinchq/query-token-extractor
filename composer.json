@@ -1,0 +1,38 @@
+{
+  "name": "codeinc/query-tokens-extractor",
+  "version": "1.0.0-beta.1",
+  "description": "Extract tokens from a query",
+  "homepage": "https://github.com/codeinchq/query-tokens-extractor",
+  "type": "library",
+  "license": "MIT",
+  "require": {
+    "php": ">=8.2"
+  },
+  "require-dev": {
+    "spatie/ray": "^1.37",
+    "phpunit/phpunit": "^10"
+  },
+  "autoload": {
+    "psr-4": {
+      "CodeInc\\QueryTokensExtractor\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "CodeInc\\QueryTokensExtractor\\Tests\\": "tests/"
+    }
+  },
+  "authors": [
+    {
+      "name": "Joan Fabrégat",
+      "email": "joan@codeinc.co",
+      "homepage": "https://www.codeinc.co",
+      "role": "developer"
+    }
+  ],
+  "config": {
+    "preferred-install": {
+      "*": "dist"
+    }
+  }
+}
