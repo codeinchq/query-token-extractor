@@ -4,7 +4,7 @@ declare(strict_types=1);
 namespace CodeInc\QueryTokensExtractor\Dto;
 
 use ArrayIterator;
-use CodeInc\QueryTokensExtractor\Type\CustomTokenType;
+use CodeInc\QueryTokensExtractor\Type\RegexType;
 use Countable;
 use IteratorAggregate;
 
@@ -18,9 +18,10 @@ final class QueryTokens implements IteratorAggregate, Countable
      */
     private array $tokens = [];
 
-    public function addToken(CustomTokenType $type, string $value): void
+    public function addToken(RegexType $type, string $value): void
     {
-        $this->tokens[] = new QueryToken($type, $value, position: count($this->tokens));
+        $position = count($this->tokens);
+        $this->tokens[$position] = new QueryToken($type, $value, $position);
     }
 
     /**
@@ -33,12 +34,7 @@ final class QueryTokens implements IteratorAggregate, Countable
 
     public function getByPosition(int $position): ?QueryToken
     {
-        foreach ($this->tokens as $token) {
-            if ($token->position === $position) {
-                return $token;
-            }
-        }
-        return null;
+        return $this->tokens[$position] ?? null;
     }
 
     public function count(): int
