@@ -154,7 +154,6 @@ $tokensExtractor = new QueryTokensExtractor([
     new RegexType(
         name: 'my_custom_token',
         regexp: '/^this a custom token/ui',
-        priority: 10,
         // a simple closure called by QueryToken::getFormattedValue()
         valueFormatter: fn($value) => strtoupper($value)
     )
