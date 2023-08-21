@@ -1,6 +1,6 @@
 {
   "name": "codeinc/query-tokens-extractor",
-  "version": "1.0.0-BETA1",
+  "version": "1.0.0-BETA2",
   "description": "Extract tokens from a query",
   "homepage": "https://github.com/codeinchq/query-tokens-extractor",
   "type": "library",
