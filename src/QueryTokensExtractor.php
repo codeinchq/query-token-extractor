@@ -13,7 +13,7 @@ namespace CodeInc\QueryTokensExtractor;
 use CodeInc\QueryTokensExtractor\Dto\QueryTokens;
 use CodeInc\QueryTokensExtractor\Type\CustomTokenType;
 
-final readonly class QueryTokensExtractor
+readonly class QueryTokensExtractor
 {
     /**
      * @param array<CustomTokenType> $types
