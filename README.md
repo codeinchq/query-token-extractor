@@ -29,10 +29,10 @@ $tokens = $tokensExtractor->extract('paris (75001) these are words 01.00.00.00.0
 
 /** @var QueryToken $token */
 foreach ($tokens as $token) {
-    echo "Position: {$token->position}\n"
-        ."Class: ".get_class($token->type)."\n"
-        ."Name: {$token->type->name}\n"
-        ."Value: {$token->value}\n";
+    echo "Position: " . $token->position . "\n"
+        ."Class: " . get_class($token->type) . "\n"
+        ."Name: " . $token->type->name . "\n"
+        ."Value: " . $token->value . "\n";
 }
 ```
 
