@@ -11,12 +11,12 @@ declare(strict_types=1);
 namespace CodeInc\QueryTokensExtractor;
 
 use CodeInc\QueryTokensExtractor\Dto\QueryTokens;
-use CodeInc\QueryTokensExtractor\Type\CustomTokenType;
+use CodeInc\QueryTokensExtractor\Type\RegexType;
 
 readonly class QueryTokensExtractor
 {
     /**
-     * @param array<CustomTokenType> $types
+     * @param array<RegexType> $types
      */
     public function __construct(private array $types)
     {
@@ -35,13 +35,13 @@ readonly class QueryTokensExtractor
             if (!empty($query)) {
                 do {
                     // testing each token type regex in order
-                    foreach ($this->getSortedTypes() as $type) {
+                    foreach ($this->types as $type) {
                         $count = 0;
                         $query = trim(
                             preg_replace_callback(
-                                pattern: $type->parsingRegex,
+                                pattern: $type->regex,
                                 callback: function (array $matches) use ($type, $tokens) {
-                                    $tokens->addToken($type, $matches[0]);
+                                    $tokens->addToken($type, $matches['value'] ?? $matches[0]);
                                     return '';
                                 },
                                 subject: $query,
@@ -57,15 +57,5 @@ readonly class QueryTokensExtractor
             }
         }
         return $tokens;
-    }
-
-    /**
-     * @return CustomTokenType[]
-     */
-    private function getSortedTypes(): array
-    {
-        $types = $this->types;
-        usort($types, fn(CustomTokenType $a, CustomTokenType $b) => $b->priority <=> $a->priority);
-        return $types;
     }
 }

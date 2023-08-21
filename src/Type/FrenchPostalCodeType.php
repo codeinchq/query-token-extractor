@@ -3,11 +3,14 @@ declare(strict_types=1);
 
 namespace CodeInc\QueryTokensExtractor\Type;
 
-final readonly class FrenchPostalCodeType extends CustomTokenType
+/**
+ * @implements RegexType<int>
+ */
+final readonly class FrenchPostalCodeType extends RegexType
 {
     private const NAME = 'french_postal_code';
 
-    public function __construct(int $priority = 10)
+    public function __construct()
     {
         parent::__construct(
             name: self::NAME,
@@ -15,7 +18,8 @@ final readonly class FrenchPostalCodeType extends CustomTokenType
              * @see https://rgxdb.com/r/354H8M0X
              * @lang RegExp
              */
-            parsingRegex: '/^(?:[0-8]\d|9[0-8])\d{3}/ui',
-            priority: $priority);
+            regex: '/^(?:[0-8]\d|9[0-8])\d{3}/ui',
+            valueFormatter: fn($value) => (int)$value
+        );
     }
 }
