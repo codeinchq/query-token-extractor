@@ -4,6 +4,7 @@ Extract tokens from a query using regex defined tokens. The library is written i
 
 ## Installation
 
+The package is [available on Packagist](https://packagist.org/packages/codeinc/query-tokens-extractor) and can be installed using Composer:
 ```bash
 composer req codeinc/query-token-extractor
 ```
