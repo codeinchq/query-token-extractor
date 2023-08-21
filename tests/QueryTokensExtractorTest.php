@@ -3,29 +3,31 @@ declare(strict_types=1);
 
 namespace CodeInc\QueryTokensExtractor\Tests;
 
-use CodeInc\QueryTokensExtractor\Type\CustomTokenType;
+use CodeInc\QueryTokensExtractor\Type\HashtagType;
+use CodeInc\QueryTokensExtractor\Type\RegexType;
 use CodeInc\QueryTokensExtractor\QueryTokensExtractor;
 use CodeInc\QueryTokensExtractor\Type\FrenchPhoneNumberType;
 use CodeInc\QueryTokensExtractor\Type\FrenchPostalCodeType;
 use CodeInc\QueryTokensExtractor\Type\WordType;
+use CodeInc\QueryTokensExtractor\Type\YearType;
 use PHPUnit\Framework\TestCase;
 
 final class QueryTokensExtractorTest extends TestCase
 {
     public function testExtractor()
     {
-        $customType =  new CustomTokenType('custom', '/^this a custom token/ui', 10);
-
         $tokensExtractor = new QueryTokensExtractor([
-            new WordType(),
             new FrenchPhoneNumberType(),
             new FrenchPostalCodeType(),
-            $customType
+            new YearType(),
+            new HashtagType(),
+            new RegexType('custom', '/^this a custom token/ui'),
+            new WordType(),
         ]);
 
-        $tokens = $tokensExtractor->extract('paris (75001) these are words 01.00.00.00.00 this a custom token');
+        $tokens = $tokensExtractor->extract('paris (75001) these are words 01.00.00.00.00 this a custom token 2023 #OMGAHashtag');
 
-        self::assertCount(7, $tokens);
+        self::assertCount(9, $tokens);
 
         $parisToken = $tokens->getByPosition(0);
         self::assertNotNull($parisToken);
@@ -60,7 +62,18 @@ final class QueryTokensExtractorTest extends TestCase
         $customToken = $tokens->getByPosition(6);
         self::assertNotNull($customToken);
         self::assertEquals('this a custom token', $customToken->value);
-        self::assertInstanceOf(CustomTokenType::class, $customToken->type);
+        self::assertInstanceOf(RegexType::class, $customToken->type);
         self::assertEquals('custom', $customToken->type->name);
+
+        $yearToken = $tokens->getByPosition(7);
+        self::assertNotNull($yearToken);
+        self::assertEquals('2023', $yearToken->value);
+        self::assertIsInt($yearToken->getFormattedValue());
+        self::assertInstanceOf(YearType::class, $yearToken->type);
+
+        $hashtagToken = $tokens->getByPosition(8);
+        self::assertNotNull($hashtagToken);
+        self::assertEquals('OMGAHashtag', $hashtagToken->value);
+        self::assertInstanceOf(HashtagType::class, $hashtagToken->type);
     }
 }
