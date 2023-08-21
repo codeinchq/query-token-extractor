@@ -131,7 +131,7 @@ class MyCustomTokenType extends RegexType
     public function __construct()
     {
         parent::__construct(
-            name: 'my_first_custom_token',
+            name: 'my_custom_token',
             regexp: '/^this a custom token/ui'
         );
     }
@@ -139,8 +139,8 @@ class MyCustomTokenType extends RegexType
 
 // alternatively tokens can be defined directly using the RegexTokenType class
 $myCustomToken2 = new RegexType(
-    name: 'my_second_custom_token',
-    regexp: '/^this another token/ui'
+    name: 'my_custom_token',
+    regexp: '/^this a custom token/ui'
 );
 ```
 
