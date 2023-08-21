@@ -73,3 +73,6 @@ Class: CodeInc\QueryTokensExtractor\Type\CustomTokenType
 Name: my_custom_token
 Value: this a custom token
 ```
+
+## License
+This library is published under the MIT license (see the [LICENSE](https://github.com/codeinchq/query-tokens-extractor/blob/main/LICENSE) file).
